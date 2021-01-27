@@ -1,47 +1,95 @@
 const Pet = require('../vpet.js'); 
 
+let pet;
+beforeEach(() => {
+    pet = new Pet("Fido");
+});
 
 describe("virtual pet constructor", ()=>{
+    
     it("should check if the pet constructor is defined",() => {
-        expect(new Pet()).toBeDefined();
+        expect(pet).toBeDefined();
     });
     it('returns an object', () => {
-        expect(new Pet()).toBeInstanceOf(Object);
+        expect(pet).toBeInstanceOf(Object);
     });
     it('sets the name property', () => {
-        const pet = new Pet("Fido");
         expect(pet.name).toEqual("Fido");        
     });
     it('has a initial age of 0', () => {
-        const pet = new Pet("Fido");
         expect(pet.age).toBe(0); 
     });   
     it('has a initial hunger of 0', () => {
-        const pet = new Pet("Fido");
         expect(pet.hunger).toBe(0); 
     });
     it('has a initial fitness of 10', () => {
-        const pet = new Pet("Fido");
         expect(pet.fitness).toBe(10); 
     });
 
 });
 
 describe("Grow up feature",()=>{
-    it("increments the age by 1", ()=>{
-        const pet = new Pet("Fido"); 
-        pet.growUp();
+   beforeEach(()=>{
+       pet.growUp();
+    });
+
+    it("increments the age by 1", ()=>{ 
         expect(pet.age).toBe(1);
-    })
-    it("increments the hunger by 5", ()=>{
-        const pet = new Pet("Fido"); 
-        pet.growUp();
+    });
+    it("increments the hunger by 5", ()=>{ 
         expect(pet.hunger).toBe(5);
-    })
-    it("decreases the fitness by 3", ()=>{
-        const pet = new Pet("Fido"); 
-        pet.growUp();
+    });
+    it("decreases the fitness by 3", ()=>{ 
         expect(pet.fitness).toBe(7);
-    })
+    });
 
 });
+
+describe("Keeping fit feature",()=>{
+    it("increments the fitness by 4", ()=>{
+        pet.fitness = 0;
+        pet.walk();
+        expect(pet.fitness).toBe(4);
+    });
+    it("increments the fitness to a maximum value of 10",() =>{
+        pet.fitness = 7;
+        pet.walk();
+        expect(pet.fitness).toBe(10);
+    });
+
+});
+
+describe ("Keeping fed feature", ()=>{
+    it("decreases hunger level by 3", ()=>{
+        pet.hunger = 5;
+        pet.feed();
+        expect(pet.hunger).toBe(2);
+    });
+    it("hunger level doesnt go below 0", ()=>{
+        pet.hunger = 2;
+        pet.feed();
+        expect(pet.hunger).toBe(0);
+    });
+});
+describe ("Check up", ()=>{
+    it("checks pet's fitness",()=>{
+        pet.fitness =2;
+        pet.hunger= 3;
+        expect(pet.checkUp()).toBe("I need a walk");
+    });
+    it("checks pet's hunger",()=>{
+        pet.fitness =4;
+        pet.hunger = 6        
+        expect(pet.checkUp()).toBe("I am hungry");
+    });
+    it("checks both pet's fitness & hunger",()=>{
+        pet.fitness = 2;
+        pet.hunger = 7;    
+        expect(pet.checkUp()).toBe('I am hungry AND I need a walk');
+    });
+    it("checks if nothing else is needed",()=>{
+        pet.fitness =4;
+        pet.hunger= 4;  
+        expect(pet.checkUp()).toBe("I feel great!");
+    });
+});     
