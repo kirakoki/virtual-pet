@@ -7,19 +7,19 @@ function Pet(name) {
 
 Pet.prototype = {
   get isAlive() {
-    // if (this.fitness === 0) {
-    //   return false;
-    // } 
-    // if(this.hunger >= 10){
-    //     return false;
-    // }
-    // if(this.age >= 30){
-    //     return false;
-    // }
-    // else {
-    //     return true;
-    // }
-    return this.age < 30 && this.hunger < 10 && this.fitness > 0;
+    if (this.fitness === 0) {
+      return false;
+    } 
+    if(this.hunger >= 10){
+        return false;
+    }
+    if(this.age >= 30){
+        return false;
+    }
+    else {
+        return true;
+    }
+    // return this.age < 30 && this.hunger < 10 && this.fitness > 0;
   },
   growUp() {
     this.age += 1;
