@@ -3,6 +3,7 @@ function Pet(name) {
   this.age = 0;
   this.hunger = 0;
   this.fitness = 10;
+  this.children = [];
 }
 
 Pet.prototype = {
@@ -20,6 +21,14 @@ Pet.prototype = {
     //     return true;
     // }
      return this.age < 30 && this.hunger < 10 && this.fitness > 0;
+  },
+  // adoptChild(childPet){
+  //   this.children.push(childPet);
+
+  // },
+  haveBaby(nameOfChild){
+    const baby = new Pet(nameOfChild);
+    this.children.push(baby);
   },
   growUp() {
     if (!this.isAlive){
