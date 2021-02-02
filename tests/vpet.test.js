@@ -31,6 +31,11 @@ describe("Grow up feature", () => {
     pet.growUp();
   });
 
+  it("throws an error if the pet is not alive", () => {
+    pet.age = 30;
+    expect(() => pet.growUp()).toThrow("Your pet is no longer alive :(");
+  });
+
   it("increments the age by 1", () => {
     expect(pet.age).toBe(1);
   });
@@ -43,10 +48,15 @@ describe("Grow up feature", () => {
 });
 
 describe("Keeping fit feature", () => {
+  it("throws an error if the pet is not alive", () => {
+    pet.age = 31;
+    expect(() => pet.walk()).toThrow("Your pet is no longer alive :(");
+  });
+
   it("increments the fitness by 4", () => {
-    pet.fitness = 0;
+    pet.fitness = 1;
     pet.walk();
-    expect(pet.fitness).toBe(4);
+    expect(pet.fitness).toBe(5);
   });
   it("increments the fitness to a maximum value of 10", () => {
     pet.fitness = 7;
@@ -56,6 +66,10 @@ describe("Keeping fit feature", () => {
 });
 
 describe("Keeping fed feature", () => {
+  it("throws an error if the pet is not alive", () => {
+    pet.age = 30;
+    expect(() => pet.feed()).toThrow("Your pet is no longer alive :(");
+  });
   it("decreases hunger level by 3", () => {
     pet.hunger = 5;
     pet.feed();
@@ -68,6 +82,10 @@ describe("Keeping fed feature", () => {
   });
 });
 describe("Check up", () => {
+  it("throws an error if the pet is not alive", () => {
+    pet.age = 30;
+    expect(() => pet.checkUp()).toThrow("Your pet is no longer alive :(");
+  });
   it("checks both pet's fitness & hunger", () => {
     pet.fitness = 2;
     pet.hunger = 7;
@@ -110,8 +128,8 @@ describe("Is alive?", () => {
     pet.hunger = 31;
     expect(pet.isAlive).toBe(false);
   });
-  it("checks if the pet is alive",()=>{
-    pet. age = 10;
+  it("checks if the pet is alive", () => {
+    pet.age = 10;
     expect(pet.isAlive).toBe(true);
   });
 });
